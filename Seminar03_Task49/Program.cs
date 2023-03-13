@@ -22,56 +22,60 @@
 
 // 1 **4** 3 **16**
 
-Console.Clear();
+using System;
+using static System.Console;// эти 2 строчки заменяют Console теперь на каждом вызове консоли можно не писать
 
-Console.Write("Введите количество строк массива: ");
-int rows = int.Parse(Console.ReadLine()!);
 
-Console.Write("Введите количество столбцов массива: ");
-int columns = int.Parse(Console.ReadLine()!);
+Clear();
+
+Write("Введите количество строк массива: ");
+int rows = int.Parse(ReadLine()!);
+
+Write("Введите количество столбцов массива: ");
+int columns = int.Parse(ReadLine()!);
 
 int[,] array = GetArray(rows, columns, 0, 10);
 PrintArray(array);
-Console.WriteLine();
+WriteLine();
 PrintArray(ChangeArray(array));
 
-int[,] GetArray(int m, int n, int minValue, int maxValue)
+int[,] GetArray(int m, int n, int minValue, int maxValue)// функция для заполнения 2-мерного массива рандомными элементами
 {
   int[,] result = new int[m, n];
   for (int i = 0; i < m; i++)
   {
     for (int j = 0; j < n; j++)
     {
-      result[i, j] = new Random().Next(minValue, maxValue + 1);
+      result[i, j] = new Random().Next(minValue, maxValue + 1);// обращаемся к каждому элементу массива и складывем рандомные числа
     }
   }
   return result;
 }
 
-int[,] ChangeArray(int[,] array)
+int[,] ChangeArray(int[,] array)// функция по изменению массива 
 {
-  for (int i = 0; i < array.GetLength(0); i++)
+  for (int i = 0; i < array.GetLength(0); i++)// первый цикл считает строки массива (GetLength(0) считает кол-во массивов)
   {
-    for (int j = 0; j < array.GetLength(1); j++)
+    for (int j = 0; j < array.GetLength(1); j++)// вложенный цикл считает колонки массива (GetLength(1) считает кол-во элементов в массивах)
     {
-      if (i % 2 == 1 && j % 2 == 1)
+      if (i % 2 == 1 && j % 2 == 1)// проверяем если строки и колонки нечётные
       {
-        array[i, j] *= array[i, j];
+        array[i, j] *= array[i, j];// то элементы возводим в квадрат (т.е умножаем саму на себя)
       }
     }
   }
-  return array;
+  return array;// возвращаем массив
 }
 
-void PrintArray(int[,] inArray)
+void PrintArray(int[,] inArray)// функция вывода 2-мерного массива
 {
   for (int i = 0; i < inArray.GetLength(0); i++)
   {
     for (int j = 0; j < inArray.GetLength(1); j++)
     {
-      Console.Write($"{inArray[i, j]} ");
+      Write($"{inArray[i, j]} ");// сначала записываем все элементы перврго массива, потом все элементы второго массива и т.д
     }
-    Console.WriteLine();
+    WriteLine();//переносим на новую строчку
   }
 }
 
